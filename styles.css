@@ -1,0 +1,235 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+}
+
+/* Header */
+.header {
+    background-color: #8B0000;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background: none;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.dropdown-content {
+    display: none; /* Ẩn đi trước */
+    position: absolute;
+    background-color: #8B0000;
+    color: white;
+    width: 900px; /* Điều chỉnh chiều ngang phù hợp */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 100;
+    left: 50%;
+    transform: translateX(-80%);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
+    display: grid;
+}
+
+.menu-column {
+    width: 100%;
+}
+
+.menu-column h3 {
+    font-size: 14px;
+    border-bottom: 1px solid white;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+.menu-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu-column ul li {
+    padding: 5px 0;
+}
+
+/* Login Button */
+.login-btn {
+    background-color: white;
+    color: #8B0000;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 15px 30px;
+    font-size: 28px; /* Tăng kích thước chữ */
+    font-weight: bold;
+}
+
+
+.core-values {
+    background-color: #8B0000; /* Màu đỏ */
+    padding: 40px 0;
+    color: white;
+    position: relative;
+}
+
+.core-values h2 {
+    margin-bottom: 20px;
+}
+
+.values-container {
+    display: flex;
+    justify-content: center;
+    padding: 0 50px;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.value-box {
+    position: relative;
+    width: 100%;
+    max-width: 250px; /* Giới hạn kích thước box */
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.value-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    display: block;
+}
+
+.value-box p {
+    position: absolute;
+    bottom: -8%; /* Đưa văn bản lên trên ảnh */
+    left: 50%;
+    transform: translateX(-50%);
+    color: #214A6B;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    /* background: rgba(0, 0, 0, 0.6);  */
+    /* padding: 8px 10px ; */
+    padding-bottom: 12px;
+    border-radius: 8px;
+    width: 95%; /* Giới hạn chiều rộng để văn bản không tràn */
+    box-sizing: border-box;
+}
+
+
+.background-white {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    height: 100px; /* Điều chỉnh độ cao của phần nền trắng */
+    background-color: white;
+    z-index: 1;
+}
+
+.banner-container {
+    width: 100%;
+    height: 500px; /* Chiều cao mong muốn */
+    overflow: hidden; /* Đảm bảo không bị tràn */
+}
+
+.banner-container img {
+    width: 100%;
+    height: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao */
+    object-fit: cover; /* Giữ tỷ lệ ảnh, lấp đầy khung mà không bị méo */
+    display: block;
+}
+
+.about-section {
+    width: 100%;
+    background-color: #F6F4EB;
+    text-align: center;
+    padding: 20px 20px;
+    color: #214A6B;
+    position: relative; /* Để không đè lên ảnh */
+}
+
+.about-section p {
+    width: 50%; /* Điều chỉnh chiều rộng để văn bản tự xuống dòng */
+    margin: 0 auto; /* Căn giữa theo chiều ngang */
+    text-align: center; /* Căn giữa nội dung */
+}
+.footer {
+    background-color: #7B0000; /* Màu nền đỏ */
+    padding: 15px 0;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+}
+
+.footer-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px; /* Tạo khoảng cách với các dòng dưới */
+}
+
+.footer-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Để đảm bảo không bị tràn màn hình nhỏ */
+}
+
+
+.gia-tri-cot-loi {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.gia-tri-cot-loi::after {
+    content: "";
+    display: block;
+    width: 230px; /* Độ dài của gạch ngang */
+    height: 1px; /* Độ dày của gạch */
+    background-color: white; /* Màu gạch */
+    margin: 8px auto 0; /* Căn giữa */
+}
+
