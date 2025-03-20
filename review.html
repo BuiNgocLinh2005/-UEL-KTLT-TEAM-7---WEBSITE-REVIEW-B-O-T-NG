@@ -46,45 +46,43 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const museumName = "BẢO TÀNG THÀNH PHỐ HỒ CHÍ MINH";
-            async function loadReviews() {
-                const response = await fetch(`/reviews/${museumName}`);
-                const data = await response.json();
-                document.getElementById("review-list").innerHTML = data.map(r => `<p><strong>${r.username}</strong> (${r.rating}★): ${r.comment}</p>`).join("");
-            }
-            loadReviews();
-
-            async function loadComments() {
-                const response = await fetch(`/comments/${museumName}`);
-                const data = await response.json();
-                document.getElementById("comment-list").innerHTML = data.map(c => `<p><strong>${c.username}</strong>: ${c.comment} <small>(${c.timestamp})</small></p>`).join("");
-            }
-            loadComments();
-
-            document.getElementById("submit-review").addEventListener("click", async function() {
-                let comment = document.getElementById("comment").value;
-                let rating = 5;
-                const response = await fetch("/reviews", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ museum_name: museumName, rating, comment })
+        document.getElementById("submit-comment").addEventListener("click", function() {
+            fetch('/check-login')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.logged_in) {
+                        alert("Bạn cần đăng nhập để bình luận!");
+                        window.location.href = "/login";
+                    } else {
+                        let commentText = document.getElementById("new-comment").value.trim();
+                        if (!commentText) {
+                            alert("Bình luận không được để trống!");
+                            return;
+                        }
+    
+                        fetch('/comments', {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                museum_name: "Tên bảo tàng",  // Thay bằng giá trị động nếu cần
+                                comment: commentText
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.message) {
+                                alert("Bình luận đã được gửi!");
+                                location.reload(); // Tải lại trang để cập nhật bình luận
+                            } else {
+                                alert(result.error);
+                            }
+                        });
+                    }
                 });
-                alert((await response.json()).message);
-                loadReviews();
-            });
-
-            document.getElementById("submit-comment").addEventListener("click", async function() {
-                let comment = document.getElementById("new-comment").value;
-                const response = await fetch("/comments", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ museum_name: museumName, comment })
-                });
-                alert((await response.json()).message);
-                loadComments();
-            });
         });
     </script>
+    </form>    
 </body>
 </html>
