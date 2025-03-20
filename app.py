@@ -106,21 +106,25 @@ def comment_page():
 
 @app.route("/comments", methods=["POST"])
 def add_comment():
-    data = request.json
-    museum_name = data.get("museum_name")
-    username = session.get('user', 'Khách')
-    comment = data.get("comment")
+    if 'user' not in session:
+        return jsonify({"error": "Bạn cần đăng nhập để bình luận!"}), 401
+    
+    data = request.json  # Nhận dữ liệu JSON thay vì request.form
+    museum_name = data.get("museum_name", "Tên bảo tàng mặc định")
+    username = session.get('user')
+    comment = data.get("comment", "").strip()
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-    if not museum_name or not comment.strip():
+    if not comment:
         return jsonify({"error": "Nội dung bình luận không được để trống!"}), 400
     
     conn = get_db_connection()
     conn.execute("INSERT INTO comments (museum_name, username, comment, timestamp) VALUES (?, ?, ?, ?)", (museum_name, username, comment, timestamp))
     conn.commit()
     conn.close()
-    
+
     return jsonify({"message": "Bình luận đã được ghi nhận!"}), 201
+
 
 @app.route("/reviews", methods=["POST"])
 def add_review():
@@ -151,6 +155,10 @@ def get_reviews(museum_name):
     conn.close()
     
     return jsonify([{ "username": r["username"], "rating": r["rating"], "comment": r["comment"], "timestamp": r["timestamp"] } for r in reviews])
+@app.route("/check-login")
+def check_login():
+    return jsonify({"logged_in": 'user' in session})
+
 
 if __name__ == "__main__":
     app.run(debug=True)
