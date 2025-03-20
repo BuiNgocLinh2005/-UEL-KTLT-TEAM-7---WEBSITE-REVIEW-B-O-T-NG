@@ -35,6 +35,7 @@ html {
     right: 0;
     height: 46px;
     background-color: #720606;
+    z-index: 1000;
 }
 
 #nav {
@@ -135,22 +136,59 @@ html {
 
 .gallery {
     display: flex;
-    justify-content: space-between; /* Canh đều ảnh theo chiều ngang */
-    gap: 10px; /* Khoảng cách giữa các ảnh */
-    margin-top: 20px;
-    padding: 10px;
+    justify-content: center; /* Căn giữa ảnh */
+    gap: 10px; /* Khoảng cách giữa ảnh */
 }
 
 .gallery img {
-    width: 24%; /* Mỗi ảnh chiếm 1/4 chiều rộng */
+    width: calc(100% / 3 - 10px); /* Chia đều 3 ảnh trên hàng ngang */
+    max-width: 300px; /* Giới hạn kích thước ảnh */
     height: auto;
-    border-radius: 8px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease-in-out;
+    border-radius: 10px; /* Bo góc ảnh nếu cần */
 }
 
 .gallery img:hover {
     transform: scale(1.05);
+}
+
+.slider-container {
+    overflow-x: auto; /* Cho phép cuộn ngang */
+    white-space: nowrap; /* Ảnh không xuống dòng */
+    scroll-behavior: smooth; /* Cuộn mượt */
+}
+
+#artifact-slider {
+    display: flex;
+}
+
+#artifact-slider img {
+    flex: 0 0 auto; /* Không co giãn */
+    width: 250px; /* Kích thước ảnh */
+    margin-right: 10px;
+}
+
+
+
+/* Nút điều hướng */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+}
+
+.slider-btn.prev {
+    left: 10px;
+}
+
+.slider-btn.next {
+    right: 10px;
 }
 
 
